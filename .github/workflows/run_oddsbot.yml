@@ -2,7 +2,7 @@ name: Run OddsBot Script
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # This runs the script every 5 minutes
+    - cron: '00 12 * * *' # This runs the script daily at midnight UTC
   workflow_dispatch: # This allows you to manually trigger the workflow
 
 jobs:
