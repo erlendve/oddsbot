@@ -1,13 +1,5 @@
 import requests
 from datetime import datetime
-import tweepy
-import os
-
-# Twitter API credentials from environment variables
-API_KEY = os.getenv("TWITTER_API_KEY")
-API_SECRET_KEY = os.getenv("TWITTER_API_SECRET_KEY")
-ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
 markets_url = "https://api.norsk-tipping.no/OddsenGameInfo/v1/api/markets/"
 events_url_template = "https://api.norsk-tipping.no/OddsenGameInfo/v1/api/events/FBL/{start}/{end}"
@@ -51,18 +43,6 @@ def get_sports_results(event_id):
     else:
         print(f"Failed to retrieve data for event ID {event_id}. Status code: {response.status_code}")
         return None
-
-def post_to_twitter(message):
-    # Authenticate to Twitter
-    auth = tweepy.OAuth1UserHandler(API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth)
-    
-    # Post a tweet
-    try:
-        api.update_status(message)
-        print("Successfully posted to Twitter")
-    except Exception as e:
-        print(f"Failed to post to Twitter: {e}")
 
 def print_most_likely_results(events_data):
     for event in events_data:
@@ -142,4 +122,3 @@ if __name__ == "__main__":
     if events_data:
         print_most_likely_results(events_data)
     print("Beregninger gjort med odds fra Norsk Tipping")
-    post_to_twitter("test twitter api")
